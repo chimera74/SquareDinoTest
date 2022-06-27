@@ -1,13 +1,25 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : AttackableObject
 {
-    
+
+    [NonSerialized]
+    public float attackRange = 0.5f;
     public bool isIdleAtStart = false;
+
+    public bool IsAlive
+    {
+        get
+        {
+            return currentHealth > 0;
+        }
+    }
 
     private Animator animator;
     private NavMeshAgent agent;
+    private Controls controls;
     
     private static readonly int animFlagIsWalking = Animator.StringToHash("IsWalking");
 
@@ -16,6 +28,7 @@ public class Enemy : AttackableObject
         base.Awake();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        controls = Controls.Instance;
     }
 
     public override void SetRagdollState(bool state)
@@ -31,6 +44,7 @@ public class Enemy : AttackableObject
     protected void Update()
     {
         updateAnimations();
+        checkPlayerDistance();
     }
 
     private void updateAnimations()
@@ -46,6 +60,18 @@ public class Enemy : AttackableObject
         }
     }
     
+    private void checkPlayerDistance()
+    {
+        if (!IsAlive)
+            return;
+        
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        if (distance < attackRange)
+        {
+            controls.GameOver();
+        }
+    }
+    
     public override void Die()
     {
         base.Die();
@@ -54,7 +80,10 @@ public class Enemy : AttackableObject
 
     public void AttackPlayer()
     {
-        agent.enabled = true;
-        agent.destination = player.transform.position;
+        if (IsAlive)
+        {
+            agent.enabled = true;
+            agent.destination = player.transform.position;
+        }
     }
 }

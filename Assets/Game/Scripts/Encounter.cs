@@ -13,10 +13,12 @@ public class Encounter : MonoBehaviour
     public Encounter nextEncounter;
     public bool firstEncounter = false;
     private Player player;
+    private Controls controls;
 
     protected void Awake()
     {
         player = Player.Instance;
+        controls = Controls.Instance;
     }
 
     protected void Start()
@@ -58,7 +60,7 @@ public class Encounter : MonoBehaviour
             else
             {
                 cleanUp();
-                Debug.Log("You win!");
+                controls.Victory();
             }
         }
     }
@@ -81,6 +83,8 @@ public class Encounter : MonoBehaviour
     public void StartEncounter()
     {
         player.LookAt(cameraTarget.position);
+        CheckCompletion();
+            
         foreach (Enemy enemy in enemies)
         {
             if (!enemy.isIdleAtStart)
