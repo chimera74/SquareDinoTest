@@ -93,8 +93,7 @@ public class Encounter : MonoBehaviour
     }
 
     public void MoveToNextEncounter()
-    { 
-        Debug.Log("MoveToNextEncounter nextEncounter.waypoint = " + nextEncounter.wp);
+    {
         nextEncounter.InitializeEncounter();
         player.MoveToWaypoint(nextEncounter.wp.position);
     }
