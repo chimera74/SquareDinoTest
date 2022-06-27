@@ -41,35 +41,32 @@ public class Controls : MonoBehaviour
     {
         if (!isRegisteringTouches)
             return;
-        
-        foreach (Touch touch in Input.touches)
+
+        if (Input.GetMouseButtonDown(0))
         {
-            if (touch.phase == TouchPhase.Began)
+            switch (gameState)
             {
-                switch (gameState)
-                {
-                    case GameState.Starting:
-                        StartGame();
-                        break;
-                    case GameState.Playing:
-                        processAttack(touch);
-                        break;
-                    default:
-                        RestartGame();
-                        break;
-                }
+                case GameState.Starting:
+                    StartGame();
+                    break;
+                case GameState.Playing:
+                    processAttack(Input.mousePosition);
+                    break;
+                default:
+                    RestartGame();
+                    break;
             }
         }
     }
 
-    private void processAttack(Touch touch)
+    private void processAttack(Vector3 screenPos)
     {
-        Ray ray = cam.ScreenPointToRay(touch.position);
+        Ray ray = cam.ScreenPointToRay(screenPos);
         Vector3 target;
         if (Physics.Raycast(ray, out RaycastHit hit, 30f))
             target = hit.point;
         else
-            target = cam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, cam.farClipPlane));
+            target = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, cam.farClipPlane));
         player.Throw(target);
     }
     

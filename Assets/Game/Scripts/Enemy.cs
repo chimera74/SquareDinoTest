@@ -6,7 +6,7 @@ public class Enemy : AttackableObject
 {
 
     [NonSerialized]
-    public float attackRange = 0.5f;
+    public float attackRange = 0.8f;
     public bool isIdleAtStart = false;
 
     public bool IsAlive

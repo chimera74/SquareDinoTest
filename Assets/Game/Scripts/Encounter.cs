@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Encounter : MonoBehaviour
 {
 
-    public Transform waypoint;
+    public Transform wp;
     public Transform cameraTarget;
     public Enemy[] enemies;
     public Encounter nextEncounter;
@@ -94,7 +94,8 @@ public class Encounter : MonoBehaviour
 
     public void MoveToNextEncounter()
     { 
+        Debug.Log("MoveToNextEncounter nextEncounter.waypoint = " + nextEncounter.wp);
         nextEncounter.InitializeEncounter();
-        player.MoveToWaypoint(nextEncounter.waypoint);
+        player.MoveToWaypoint(nextEncounter.wp.position);
     }
 }

@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations;
 
 public class Player : MonoBehaviour
 {
@@ -86,11 +82,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void MoveToWaypoint(Transform waypoint)
+    public void MoveToWaypoint(Vector3 waypoint)
     {
         faceForward();
         agent.enabled = true;
-        agent.destination = waypoint.position;
+        agent.destination = waypoint;
         isMoving = true;
     }
     
