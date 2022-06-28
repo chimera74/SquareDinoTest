@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     
     [Header("Settings")]
     public Transform throwPoint;
-    public Transform projectilePrefab;
     
     private Vector3 target;
     private bool isMoving; 
@@ -19,6 +18,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Transform childTransform;
     private AnimationEvents animationEvents;
+    private ObjectPool objectPool;
     
     private static readonly int animFlagIsRunning = Animator.StringToHash("IsRunning");
     private static readonly int animTriggerThrow = Animator.StringToHash("Throw");
@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         animationEvents = GetComponentInChildren<AnimationEvents>();
         childTransform = transform.GetChild(0);
+        objectPool = GetComponent<ObjectPool>();
     }
 
     protected void Start()
@@ -124,7 +125,11 @@ public class Player : MonoBehaviour
     private void SpawnProjectile()
     {        
         var spawnPos = throwPoint.position;
-        var projectile = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
-        projectile.GetComponent<Projectile>().Launch(target - spawnPos);
+        var projectile = objectPool.Get();
+        if (projectile != null)
+        {
+            projectile.transform.position = spawnPos;
+            projectile.GetComponent<Projectile>().Launch(target - spawnPos);
+        }
     }
 }

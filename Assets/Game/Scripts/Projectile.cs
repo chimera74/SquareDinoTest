@@ -12,15 +12,18 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rb;
     private bool hasCollided = false;
+    private ObjectPool pool;
     protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        pool = Player.Instance.GetComponent<ObjectPool>();
     }
 
     public void Launch(Vector3 direction)
-    {        
+    {
         rb.velocity = direction.normalized * speed;
-        Destroy(gameObject, 5f);
+        hasCollided = false;
+        this.Invoke(() => { pool.Release(gameObject); }, 5f);
     }
 
     private void OnCollisionEnter(Collision collision)

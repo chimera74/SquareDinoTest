@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7905590412197419367}
   - component: {fileID: 7905590412197419366}
   - component: {fileID: 7905590412197419361}
+  - component: {fileID: 8860423699775342095}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -46,6 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c46fdfdcf91f445a452114dae29a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiStart: {fileID: 0}
+  uiGameOver: {fileID: 0}
+  uiVictory: {fileID: 0}
+  uiRestart: {fileID: 0}
 --- !u!114 &7905590412197419366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +88,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8860423699775342095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7905590412197419363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7891e58188ce4a84d8b18af6b591976d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1981175610262648928, guid: 17294fc26da170140bfa8f0e68c5ef26, type: 3}
+  maxSize: 10
+  startingSize: 10
 --- !u!1001 &7905590413168476023
 PrefabInstance:
   m_ObjectHideFlags: 0
